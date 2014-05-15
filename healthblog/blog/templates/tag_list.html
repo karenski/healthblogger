@@ -1,0 +1,22 @@
+<h3>Topic Tags</h3>
+<ul class="nav nav-list">
+	{% if topic_tags %}
+		{% for tag in topic_tags %}
+			<li><a href="{% url 'blog.views.tag' tag.name %}">{{ tag.name }}</a></li>
+		{% endfor %}
+	{% else %}
+		<li>No categories here.</li>
+	{% endif %}
+</ul>
+
+<h3>Other Tags</h3>
+<ul class="nav nav-list">
+	{% if other_tags %}
+		{% for tag in other_tags %}
+			<li><a href="{% url 'blog.views.tag' tag.name %}">{{ tag.name }}</a></li>
+		{% endfor %}
+
+	{% else %}
+		<li>No categories here.</li>
+	{% endif %}
+</ul>

@@ -1,11 +1,38 @@
 {% extends 'base.html' %}
 
-{% block subheader %}All articles{% endblock %}
+{% block subheader %} Most Viewed Articles {% endblock %}
+
 
 {% block content %}
-<u1>
-	<li>Bookmark</li>
-	<li>Bookmark</li>
-	<li>Bookmark</li>
+<u1 class="articles">
+	{% for article in articles %}
+	<li> 
+		<img class="article-image" src="{{ article.image }}" height=100px width=100px/>
+		<a class="article-link" href="{{ article.url }}">{{ article.title }}</a>
+		<div class="metadata">
+			<span class="blurb">
+				{{ article.blurb }}
+			</span>
+			{% if article.tag_set.all %}
+			<span class="tags">
+				Tags:
+				{% for tag in article.tag_set.all %}
+					<a href="{% url 'blog.views.tag' tag.name %}">{{ tag.name }}</a>
+					{% endfor %}
+			</span>
+			{% endif %}		
+	</li>
+	{% endfor %}
 </ul>
+{% endblock %}
+
+{% block add_article_widget %}
+<div id="new-bookmark-widget">
+	<form method="post">
+		{% csrf_token %}
+		<h3>Article</h3>
+		{{ form.as_p }}
+		<p><button id="new-article-submit">Submit</button>
+	</form>
+</div>
 {% endblock %}

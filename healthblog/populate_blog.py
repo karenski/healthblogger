@@ -1,6 +1,7 @@
 import os
 
 def populate():
+	wearables_tag = add_tag('Consumer_Wearables',True)
 
 
 def add_article(title, url, blurb, image, views=0):
