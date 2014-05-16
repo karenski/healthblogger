@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block subheader %} Add an Article {% endblock %}
+
+
+{% block content %}
+<div id="new-bookmark-widget">
+	<form method="post">
+		{% csrf_token %}
+		<h3>Article</h3>
+		{{ form.as_p }}
+		<p><button id="new-article-submit">Submit</button>
+	</form>
+</div>
+
+{% endblock %}

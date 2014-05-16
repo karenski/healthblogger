@@ -13,9 +13,14 @@
 			<span class="blurb">
 				{{ article.blurb }}
 			</span>
+			<br>
+			<span class="views">
+				<strong>Number of views: </strong>{{ article.views }}
+			</span>
 			{% if article.tag_set.all %}
+			<br>	
 			<span class="tags">
-				Tags:
+				<strong>Tags: </strong>
 				{% for tag in article.tag_set.all %}
 					<a href="{% url 'blog.views.tag' tag.name %}">{{ tag.name }}</a>
 					{% endfor %}

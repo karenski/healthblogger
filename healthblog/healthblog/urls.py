@@ -7,6 +7,7 @@ urlpatterns = patterns('',
 	url(r'^$', 'blog.views.index', name='home'),
 	url(r'^articles/$', 'blog.views.index', name='articles'),
 	url(r'^tags/([\w-]+)/$', 'blog.views.tag'),
+	url(r'^add_article/$', 'blog.views.add_article', name='add_article'),
 
     # url(r'^blog/', include('blog.urls')),
 
