@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block subheader %}Registration{% endblock %}
+
+{% block content %}
+
+	{% if registered %}
+	Thank you for registering!
+	<a href="/">Return to the homepage.</a> <br>
+	{% else %}
+	Register here!
+
+	<form id="user_form" method="post" action="/register/" enctype="multipart/form-data">
+		{% csrf_token %}
+
+		{{ user_form.as_p }}
+
+		<input type="submit" name="Submit" value="Register"/>
+
+	</form>
+	{% endif %}
+
+{% endblock %}

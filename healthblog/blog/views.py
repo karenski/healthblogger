@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from blog.models import Article, Tag
-from blog.forms import ArticleForm
+from blog.forms import ArticleForm, UserForm
 import urllib
 
 # home page / index page with the 20 most recent articles
@@ -66,3 +66,29 @@ def add_article(request):
 	}
 
 	return render(request, 'add_article.html', context)	
+
+def register(request):
+	# context = RequestContext(request)
+	registered = False
+	if request.method == 'POST':
+		user_form = UserForm(data=request.POST)
+
+		if user_form.is_valid():
+			user = user_form.save()
+			user.set_password(user)
+			user.save()
+			registered = True
+
+		else:
+			print user_form.errors
+
+	else:
+		user_form = UserForm()
+
+	context = {
+		'user_form': user_form,
+		'registered': registered
+	}
+
+	return render(request, 'registration/register.html', context)		
+

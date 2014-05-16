@@ -2,7 +2,7 @@
 <ul class="nav nav-list">
 	{% if topic_tags %}
 		{% for tag in topic_tags %}
-			<li><a href="{% url 'blog.views.tag' tag.name %}">{{ tag.name }}({{ tag.article_count }})</a></li>
+			<li><a href="{% url 'blog.views.tag' tag.name %}">{{ tag.name }} ({{ tag.article_count }} articles)</a></li>
 		{% endfor %}
 	{% else %}
 		<li>No categories here.</li>
@@ -13,7 +13,7 @@
 <ul class="nav nav-list">
 	{% if other_tags %}
 		{% for tag in other_tags %}
-			<li><a href="{% url 'blog.views.tag' tag.name %}">{{ tag.name }}</a></li>
+			<li><a href="{% url 'blog.views.tag' tag.name %}">{{ tag.name }} ({{ tag.article_count }} articles)</a></li>
 		{% endfor %}
 
 	{% else %}

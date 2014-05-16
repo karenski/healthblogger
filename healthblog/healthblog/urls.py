@@ -8,8 +8,9 @@ urlpatterns = patterns('',
 	url(r'^articles/$', 'blog.views.index', name='articles'),
 	url(r'^tags/([\w-]+)/$', 'blog.views.tag'),
 	url(r'^add_article/$', 'blog.views.add_article', name='add_article'),
-
-    # url(r'^blog/', include('blog.urls')),
+	url(r'^login/$', 'django.contrib.auth.views.login'),
+	url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': "/"}),
+	url(r'^register/$', 'blog.views.register', name='register'),
 
     url(r'^admin/', include(admin.site.urls)),
 )
