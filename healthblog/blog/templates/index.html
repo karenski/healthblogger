@@ -1,32 +1,36 @@
 {% extends 'base.html' %}
 
-{% block subheader %} Most Viewed Articles {% endblock %}
-
 
 {% block content %}
-<u1 class="articles">
-	{% for article in articles %}
-	<li> 
-		<img class="article-image" src="{{ article.image }}" height=100px width=100px/>
-		<a class="article-link" href="{{ article.url }}">{{ article.title }}</a>
-		<div class="metadata">
-			<span class="blurb">
-				{{ article.blurb }}
-			</span>
-			<br>
-			<span class="views">
-				<strong>Number of views: </strong>{{ article.views }}
-			</span>
-			{% if article.tag_set.all %}
-			<br>	
-			<span class="tags">
-				<strong>Tags: </strong>
-				{% for tag in article.tag_set.all %}
-					<a href="{% url 'blog.views.tag' tag.name %}">{{ tag.name }}</a>
-					{% endfor %}
-			</span>
-			{% endif %}		
-	</li>
-	{% endfor %}
-</ul>
+<div class="hero-unit">
+	<h1>Top News in Digital Health</h1>
+</div>
+<div class="container-fluid">
+
+	<u1 class="articles">
+		{% for article in articles %}
+		<li> 
+			<img class="article-image" src="{{ article.image }}" height=100px width=100px/>
+			<a class="article-link" href="{{ article.url }}">{{ article.title }}</a>
+			<div class="metadata">
+				<span class="blurb">
+					{{ article.blurb }}
+				</span>
+				<br>
+				<span class="views">
+					<strong>Number of views: </strong>{{ article.views }}
+				</span>
+				{% if article.tag_set.all %}
+				<br>	
+				<span class="tags">
+					<strong>Tags: </strong>
+					{% for tag in article.tag_set.all %}
+						<a href="{% url 'blog.views.tag' tag.name %}">{{ tag.name }}</a>
+						{% endfor %}
+				</span>
+				{% endif %}		
+		</li>
+		{% endfor %}
+	</ul>
+</div>
 {% endblock %}

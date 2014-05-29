@@ -1,31 +1,83 @@
 <!doctype html>
+{% load static %}
 <html>
 <head>
-		<title>Digital Health 101</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
+
+	<title>{% block title %}Digital Health 101{% endblock %}</title>
 </head>
 
 <body>
-	<div id="header">
-		<h1>Digital Health 101</h1>
-	</div>
-	<div id="content">	
-		<h2>{% block subheader %}{% endblock %}</h2>
-		{% block content %}
-		{% endblock %}
-	</div>
+	
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="brand" href="/articles/">Digital Health Digest</a>
 
-	<div class="well sidebar-nav">
-		{% block sidebar %}
-		{% endblock %}
-		<div id="tags">
-			{% include 'tag_list.html' %}
+				<div class="nav-collapse collapse">
+					<ul class="nav pull-right">
+						{% if user.is_authenticated %}
+						<li class="navbar-text">Welcome, {{ user.username }}!</li>
+						<li><a href="/logout/">Logout</a></li>
+						{% else %}
+						<li><a href="/register/">Register</a></li>
+						<li><a href="/login/">Login</a></li>
+						{% endif %}
+					</ul>
+					<ul class="nav">
+						{% if user.is_authenticated %}
+						<li><a href="/add_article/">Add Article</a></li>
+						{% endif %}
+						<!-- <li><a href="/about/">About</a></li> -->
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 
 
-	<div id="footer">
-		Made in San Francisco 2014 <br>
-		<a href= "{% url 'blog.views.index'%}">Home Page</a>
+
+
+<!-- 	<div id="header">
+		<h1>Digital Health 101</h1>
+	</div> -->
+
+
+	<div class="container-fluid">
+		<div class ="row-fluid">
+			<div class="span3">
+				<div class="well sidebar-nav">
+				{% block sidebar %}
+				{% endblock %}
+					<div id="tags">
+						{% include 'tag_list.html' %}
+					</div>
+				</div> 
+			</div>
+			<div class="span9">
+				<h2>{% block subheader %}{% endblock %}</h2>
+				{% block content %}
+				{% endblock %}
+			</div>
 	</div>
+
+
+<!-- 	<footer>
+		<div class="container">
+			<p>Made in San Francisco 2014</p>
+			<a href= "{% url 'blog.views.index'%}">Home Page</a>
+		</div>
+	<footer> -->
+
+	<script src="{% static 'js/jquery-2.0.3.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>
