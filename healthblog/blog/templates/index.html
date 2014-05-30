@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 
 
-{% block content %}
-<div class="hero-unit">
-	<h1>Top News in Digital Health</h1>
-</div>
-<div class="container-fluid">
+{% block subheader %} Top News in Digital Health {% endblock %}
 
+
+
+{% block content %}
+
+<div class="container-fluid">
 	<u1 class="articles">
 		{% for article in articles %}
 		<li> 
@@ -25,7 +26,7 @@
 				<span class="tags">
 					<strong>Tags: </strong>
 					{% for tag in article.tag_set.all %}
-						<a href="{% url 'blog.views.tag' tag.name %}">{{ tag.name }}</a>
+						<a href="{% url 'blog.views.tag' tag.name %}">{{ tag.name }} | </a>
 						{% endfor %}
 				</span>
 				{% endif %}		

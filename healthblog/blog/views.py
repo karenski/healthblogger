@@ -34,7 +34,11 @@ def tag(request, tag_name):
 # list of tags for the sidebar
 def get_tag_lists():
 	topic_tags = Tag.objects.filter(topic_tag=True)
+	for tag in topic_tags:
+		tag.clean_name = tag.name.replace('_', ' ')
 	other_tags = Tag.objects.filter(topic_tag=False)
+	for tag in other_tags:
+		tag.clean_name = tag.name.replace('_', ' ')
 
 	return topic_tags, other_tags
 
@@ -42,6 +46,8 @@ def get_tag_lists():
 
 def add_article(request):
 	# context = RequestContext(request)
+	topic_tags, other_tags = get_tag_lists()
+	current_user = request.user
 
 	if request.method == 'POST':
 		form = ArticleForm(request.POST)
@@ -53,16 +59,22 @@ def add_article(request):
 					raw_tag = raw_tag.strip().replace(' ', '_').lower()
 					tag_name = urllib.quote(raw_tag)
 					tag, created = Tag.objects.get_or_create(name=tag_name)
+					if created:
+						tag.article_count=1
+					else:
+						tag.article_count +=1
 					tag.save()
 					tag.articles.add(new_article)
 			return redirect(index)
 		else:
 			print form.errors
 	else:
-		form = ArticleForm()
+		form = ArticleForm(initial={'author': current_user})
 
 	context = {
-		'form': form
+		'form': form,
+		'topic_tags': topic_tags,
+		'other_tags': other_tags,
 	}
 
 	return render(request, 'add_article.html', context)	
