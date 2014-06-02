@@ -33,10 +33,10 @@ def tag(request, tag_name):
 
 # list of tags for the sidebar
 def get_tag_lists():
-	topic_tags = Tag.objects.filter(topic_tag=True)
+	topic_tags = Tag.objects.filter(topic_tag=True).order_by('-article_count')
 	for tag in topic_tags:
 		tag.clean_name = tag.name.replace('_', ' ')
-	other_tags = Tag.objects.filter(topic_tag=False)
+	other_tags = Tag.objects.filter(topic_tag=False).order_by('-article_count')
 	for tag in other_tags:
 		tag.clean_name = tag.name.replace('_', ' ')
 
