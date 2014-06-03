@@ -5,7 +5,7 @@ import urllib
 
 # home page / index page with the 20 most recent articles
 def index(request):
-	articles = Article.objects.all()[:20]
+	articles = Article.objects.all().order_by('-timestamp')[:20]
 	topic_tags, other_tags = get_tag_lists()
 	context = {
 		'articles': articles,
