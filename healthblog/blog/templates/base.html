@@ -29,7 +29,7 @@
 						<li class="navbar-text">Welcome, {{ user.username }}!</li>
 						<li><a href="/logout/">Logout</a></li>
 						{% else %}
-						<li><a href="/register/">Register</a></li>
+						<!-- <li><a href="/register/">Register</a></li> -->
 						<li><a href="/login/">Login</a></li>
 						{% endif %}
 					</ul>
@@ -37,7 +37,7 @@
 						{% if user.is_authenticated %}
 						<li><a href="/add_article/">Add Article</a></li>
 						{% endif %}
-						<!-- <li><a href="/about/">About</a></li> -->
+						<li><a href="/about/">About</a></li>
 					</ul>
 				</div>
 			</div>
@@ -79,7 +79,7 @@
 		</div>
 	<footer> -->
 
-	<script src="{% static 'js/jquery-2.0.3.min.js' %}"></script>
+	<script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>

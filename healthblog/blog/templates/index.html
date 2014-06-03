@@ -11,9 +11,13 @@
 	<u1 class="articles">
 		{% for article in articles %}
 		<li> 
-			<img class="article-image" src="{{ article.image }}" height=100px width=100px/>
-			<a class="article-link" href="{{ article.url }}">{{ article.title }}</a>
+			<img class="article-image" src="{{ article.publisher.image }}" height=100px width=100px/>
+			<a class="article-link" href="/goto/?article_id={{ article.id }}">{{ article.title }}</a>
 			<div class="metadata">
+				<span class="pub_date">
+					<strong>Date published: </strong>{{ article.date_published }}
+				</span>
+				<br>
 				<span class="blurb">
 					{{ article.blurb }}
 				</span>

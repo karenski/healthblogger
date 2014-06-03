@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from blog.models import Article, Tag
 from blog.forms import ArticleForm, UserForm
 import urllib
+from datetime import datetime
 
 # home page / index page with the 20 most recent articles
 def index(request):
@@ -12,6 +13,17 @@ def index(request):
 		'topic_tags': topic_tags,
 		'other_tags': other_tags,
 	}
+
+	if request.session.get('last_visit'):
+		last_visit_time = request.session.get('last_visit')
+		visits = request.session.get('visits',0)
+
+		if (datetime.now() - datetime.strptime(last_visit_time[:-7], "%Y-%m-%d %H:%M:%S")).days > 0:
+			request.session['visits'] = visits + 1
+			request.session['last_visit'] = str(datetime.now())
+	else:
+		request.session['last_visit'] = str(datetime.now())
+		request.session['visits'] = 1 		
 
 	return render(request, 'index.html', context)
 
@@ -43,7 +55,6 @@ def get_tag_lists():
 	return topic_tags, other_tags
 
 # add article page with form to add an article
-
 def add_article(request):
 	# context = RequestContext(request)
 	topic_tags, other_tags = get_tag_lists()
@@ -104,3 +115,21 @@ def register(request):
 
 	return render(request, 'registration/register.html', context)		
 
+def track_url(request):
+	article_id = None
+	if request.method == 'GET':
+		if 'article_id' in request.GET:
+			article_id = request.GET['article_id']
+			
+			try:
+				article = Article.objects.get(id=article_id)
+				article.views = article.views +1
+				article.save()
+				url = article.url
+			except:
+				pass
+			return redirect(url)
+	return redirect(index)
+
+def about(request):
+	return render(request,'about.html')
