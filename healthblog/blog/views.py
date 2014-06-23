@@ -3,6 +3,7 @@ from blog.models import Article, Tag
 from blog.forms import ArticleForm, UserForm
 import urllib
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 # home page / index page with the 20 most recent articles
 def index(request):
@@ -55,6 +56,7 @@ def get_tag_lists():
 	return topic_tags, other_tags
 
 # add article page with form to add an article
+@login_required
 def add_article(request):
 	# context = RequestContext(request)
 	topic_tags, other_tags = get_tag_lists()

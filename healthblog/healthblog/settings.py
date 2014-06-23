@@ -87,6 +87,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+LOGIN_URL = '/login/'
+
 import os
 if 'DATABASE_URL' in os.environ:
     import dj_database_url
